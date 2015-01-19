@@ -39,19 +39,6 @@ public class MainActivity extends ActionBarActivity {
         name = (TextView) findViewById(R.id.main_titlebar);
         email = (TextView) findViewById(R.id.email_show);
 
-        // Check device for Play Services APK. If check succeeds, proceed with
-        //  GCM registration.
-   //     if (checkPlayServices()) {
-    //        gcm = GoogleCloudMessaging.getInstance(this);
-    //        regid = getRegistrationId(context);
-
-            //if (regid.isEmpty()) {
-             //   registerInBackground();
-           // }
-     //   } else {
-     //       Log.i(TAG, "No valid Google Play Services APK found.");
-     //   }
-
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         if (sharedpreferences.contains(Name))
