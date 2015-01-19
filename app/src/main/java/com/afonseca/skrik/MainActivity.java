@@ -1,25 +1,46 @@
 package com.afonseca.skrik;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
     public final static String EXTRA_MESSAGE = "com.afonseca.skrik.MESSAGE";
 
+    TextView name ;
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
+        name = (TextView) findViewById(R.id.main_titlebar);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        if (sharedpreferences.contains(Name))
+        {
+            name.setText(sharedpreferences.getString(Name, ""));
+        } else
+        {
+            Intent intent = new Intent(this, UserActivity.class);
+            startActivity(intent);
+        }
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -43,12 +65,21 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Called when the user clicks the Save user button */
-    public void saveUser(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText nameEditText = (EditText) findViewById(R.id.name_input);
-        String message = nameEditText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+    @Override
+    protected void onResume(){
+        super.onResume();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        if (sharedpreferences.contains(Name))
+        {
+            name.setText(sharedpreferences.getString(Name, ""));
+        }
+    }
+
+    /** Called when the user clicks the Config button */
+    public void configUser(View view) {
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
+
 }
