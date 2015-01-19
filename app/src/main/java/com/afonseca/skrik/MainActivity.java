@@ -8,17 +8,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
+
+    public static final String PROPERTY_REG_ID = "registration_id";
+    String SENDER_ID = "610647426983";
+   // GoogleCloudMessaging gcm;
+
+
     public final static String EXTRA_MESSAGE = "com.afonseca.skrik.MESSAGE";
 
     TextView name ;
+    TextView email ;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Name = "nameKey";
+    public static final String Email = "emailKey";
+
     SharedPreferences sharedpreferences;
 
     @Override
@@ -27,6 +37,20 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         name = (TextView) findViewById(R.id.main_titlebar);
+        email = (TextView) findViewById(R.id.email_show);
+
+        // Check device for Play Services APK. If check succeeds, proceed with
+        //  GCM registration.
+   //     if (checkPlayServices()) {
+    //        gcm = GoogleCloudMessaging.getInstance(this);
+    //        regid = getRegistrationId(context);
+
+            //if (regid.isEmpty()) {
+             //   registerInBackground();
+           // }
+     //   } else {
+     //       Log.i(TAG, "No valid Google Play Services APK found.");
+     //   }
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -74,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
         {
             name.setText(sharedpreferences.getString(Name, ""));
         }
+        email.setText(sharedpreferences.getString(Email, ""));
     }
 
     /** Called when the user clicks the Config button */
